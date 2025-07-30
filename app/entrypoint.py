@@ -1,5 +1,6 @@
 from os import getenv
 from datetime import datetime
+import signal
 import subprocess
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -41,6 +42,12 @@ if __name__ == "__main__":
         getenv("CRON_SCHEDULE") or "0 0 1/10 * *"
     )  # Every 10 days by default
     job = scheduler.add_job(job_func, trigger, next_run_time=datetime.now())
+
+    def handle_sigterm(signum, frame):
+        print("Received SIGTERM, shutting down scheduler...")
+        scheduler.shutdown(wait=False)
+
+    signal.signal(signal.SIGTERM, handle_sigterm)
 
     try:
         scheduler.start()
