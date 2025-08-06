@@ -13,5 +13,5 @@ services:
       - CRON_SCHEDULE=${CRON_SCHEDULE} # renew every 10 days if not set
       - TZ=${TZ:-Asia/Shanghai}
     volumes:
-      - ./data/config:/etc/letsencrypt
-      - ./data/log:/var/log/letsencrypt
+      - ${HOME}/letsencrypt:/etc/letsencrypt
+      - ${HOME}/log/letsencrypt:/var/log/letsencrypt
