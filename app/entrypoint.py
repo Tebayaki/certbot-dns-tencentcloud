@@ -17,12 +17,15 @@ def certonly():
         "--domains", DOMAINS,
         "--manual",
         "--preferred-challenges", "dns",
-        "--manual-auth-hook", "python auth.py",
-        "--manual-cleanup-hook", "python cleanup.py",
+        "--manual-auth-hook", "python /app/auth.py",
+        "--manual-cleanup-hook", "python /app/cleanup.py",
         "--agree-tos",
         "--email", EMAIL,
         "--no-eff-email",
         "--keep-until-expiring",
+        "--work-dir", "/app/work",
+        "--logs-dir", "/app/log",
+        "--config-dir", "/app/config",
     )
     if getenv("DRY_RUN", "").lower() in ["true", "1", "yes"]:
         cmd += ("--dry-run",)
