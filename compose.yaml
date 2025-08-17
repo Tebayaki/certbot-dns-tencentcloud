@@ -12,6 +12,7 @@ services:
       - DRY_RUN=${DRY_RUN}
       - CRON_SCHEDULE=${CRON_SCHEDULE} # renew every 10 days if not set
       - TZ=${TZ:-Asia/Shanghai}
+      - PUID=${PUID:-1000}
+      - GUID=${GUID:-1000}
     volumes:
-      - ${HOME}/letsencrypt:/etc/letsencrypt
-      - ${HOME}/log/letsencrypt:/var/log/letsencrypt
+      - ${HOME}/letsencrypt:/data

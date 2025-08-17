@@ -23,6 +23,9 @@ def certonly():
         "--email", EMAIL,
         "--no-eff-email",
         "--keep-until-expiring",
+        "--work-dir", "/app",
+        "--logs-dir", "/data/log",
+        "--config-dir", "/data",
     )
     if getenv("DRY_RUN", "").lower() in ["true", "1", "yes"]:
         cmd += ("--dry-run",)
