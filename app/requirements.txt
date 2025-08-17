@@ -1,3 +1,4 @@
-tencentcloud_sdk_python==3.0.1406
+tencentcloud-sdk-python-common==3.0.1444
+tencentcloud-sdk-python-dnspod==3.0.1443
 certbot==4.1.1
 APScheduler==3.11.0
