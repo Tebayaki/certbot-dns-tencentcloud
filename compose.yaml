@@ -4,8 +4,8 @@ services:
     container_name: certbot-dns-tencentcloud
     restart: unless-stopped
     environment:
-      - SECRET_ID=${SECRET_ID}
-      - SECRET_KEY=${SECRET_KEY}
+      - TENCENTCLOUD_SECRET_ID=${TENCENTCLOUD_SECRET_ID}
+      - TENCENTCLOUD_SECRET_KEY=${TENCENTCLOUD_SECRET_KEY}
       - REGION=${REGION}
       - DOMAINS=${DOMAINS}
       - EMAIL=${EMAIL}

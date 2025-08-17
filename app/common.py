@@ -18,11 +18,11 @@ def DnspodClient():
     # 以下代码示例仅供参考，建议采用更安全的方式来使用密钥
     # 请参见：https://cloud.tencent.com/document/product/1278/85305
     # 密钥可前往官网控制台 https://console.cloud.tencent.com/cam/capi 进行获取
-    SECRET_ID = getenv("SECRET_ID")
-    SECRET_KEY = getenv("SECRET_KEY")
+    TENCENTCLOUD_SECRET_ID = getenv("TENCENTCLOUD_SECRET_ID")
+    TENCENTCLOUD_SECRET_KEY = getenv("TENCENTCLOUD_SECRET_KEY")
     REGION = getenv("REGION", "")
-    if not SECRET_ID or not SECRET_KEY:
-        raise ValueError("Environment variables SECRET_ID and SECRET_KEY must be set.")
+    if not TENCENTCLOUD_SECRET_ID or not TENCENTCLOUD_SECRET_KEY:
+        raise ValueError("Environment variables TENCENTCLOUD_SECRET_ID and TENCENTCLOUD_SECRET_KEY must be set.")
 
-    cred = credential.Credential(SECRET_ID, SECRET_KEY)
+    cred = credential.Credential(TENCENTCLOUD_SECRET_ID, TENCENTCLOUD_SECRET_KEY)
     return dnspod_client.DnspodClient(cred, REGION)

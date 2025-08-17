@@ -13,8 +13,8 @@ touch .env compose.yaml
 ```
 `.env`
 ```bash
-SECRET_ID=     # 你的腾讯云SecretId
-SECRET_KEY=    # 你的腾讯云SecretKey
+TENCENTCLOUD_SECRET_ID=     # 你的腾讯云SecretId
+TENCENTCLOUD_SECRET_KEY=    # 你的腾讯云SecretKey
 DOMAINS=       # 你的域名列表，用英文逗号分隔，例：*.example.com,example.com
 EMAIL=         # 你的邮箱地址，例：tebayaki@example.com
 DRY_RUN=       # 如果第一次运行，可指定True进行测试，留空则正式申请证书
@@ -27,8 +27,8 @@ services:
     container_name: certbot-dns-tencentcloud
     restart: unless-stopped
     environment:
-      - SECRET_ID=${SECRET_ID}
-      - SECRET_KEY=${SECRET_KEY}
+      - TENCENTCLOUD_SECRET_ID=${TENCENTCLOUD_SECRET_ID}
+      - TENCENTCLOUD_SECRET_KEY=${TENCENTCLOUD_SECRET_KEY}
       - DOMAINS=${DOMAINS}
       - EMAIL=${EMAIL}
       - DRY_RUN=${DRY_RUN}
