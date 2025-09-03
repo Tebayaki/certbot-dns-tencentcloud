@@ -18,6 +18,10 @@ TENCENTCLOUD_SECRET_KEY=    # 你的腾讯云SecretKey
 DOMAINS=       # 你的域名列表，用英文逗号分隔，例：*.example.com,example.com
 EMAIL=         # 你的邮箱地址，例：tebayaki@example.com
 DRY_RUN=       # 如果第一次运行，可指定True进行测试，留空则正式申请证书
+CRON_SCHEDULE= # 执行更新证书任务的crontab表达式
+TZ=Asia/Shanghai
+PUID=1000
+PGID=1000
 ```
 `compose.yaml`
 ```yaml
@@ -29,14 +33,16 @@ services:
     environment:
       - TENCENTCLOUD_SECRET_ID=${TENCENTCLOUD_SECRET_ID}
       - TENCENTCLOUD_SECRET_KEY=${TENCENTCLOUD_SECRET_KEY}
+      - REGION=${REGION}
       - DOMAINS=${DOMAINS}
       - EMAIL=${EMAIL}
       - DRY_RUN=${DRY_RUN}
-      - PGID=${PGID:-1000}
+      - CRON_SCHEDULE=${CRON_SCHEDULE} # renew every 10 days if not set
+      - TZ=${TZ:-Asia/Shanghai}
       - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
     volumes:
-      - /etc/letsencrypt:/etc/letsencrypt # persistent storage for certificates
-      - /var/log/letsencrypt:/var/log/letsencrypt # persistent storage for logs
+      - ${HOME}/letsencrypt:/data
 ```
 启动容器
 ```bash
@@ -49,5 +55,3 @@ docker logs certbot-dns-tencentcloud
 ### 注意事项
 - 容器启动时立即尝试申请证书，第一次运行可指定环境变量`DRY_RUN`为`True`进行测试
 - 默认每10天尝试1次续约，可指定环境变量`CRON_SCHEDULE`为cron表达式以自定义行为
-- 以上配置将证书和密钥保存在宿主机的`/etc/letsencrypt/live/ztoco.top/fullchain.pem`和`/etc/letsencrypt/live/ztoco.top/privkey.pem`中
-- 如果其他搭载了Web服务的容器需要使用证书，需挂载`/etc/letsencrypt/`。由于上面两个路径是符号链接，挂载到`/etc/letsencrypt/live/ztoco.top/`会报错不存在该文件
