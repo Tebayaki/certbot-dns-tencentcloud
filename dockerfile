@@ -35,6 +35,7 @@ RUN set -eux; \
 	gosu --version; \
 	gosu nobody true; \
 	\
+	apk add --no-cache shadow; \
 	pip install --no-cache-dir --upgrade pip; \
 	pip install --no-cache-dir -r requirements.txt; \
 	pip uninstall -y pip setuptools wheel; \
